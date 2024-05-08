@@ -48,7 +48,8 @@ local plugins = {
 
   {
     "hrsh7th/nvim-cmp",
-    -- enabled = true
+    enabled = true,
+	lazy = false,
   },
   -- {
   --   'goolord/alpha-nvim',
@@ -65,10 +66,10 @@ local plugins = {
     config = function()
         local header = require("42header")
         header.setup({
-            default_map = true, -- default Mapping <F1> in normal mode
+            default_map = true, -- default Mapping <F1> in normal 
             auto_update = true,  -- update header when saving
             user = "whamdi", -- your user
-            mail = "", -- your mail
+            mail = "whamdi@42.fr", -- your mail
         })
     end
   },
@@ -126,21 +127,21 @@ local plugins = {
     lazy = false,
   },
 
-{
-  "folke/noice.nvim",
-  event = "VeryLazy",
-  opts = {
-    -- add any options here
-  },
-  dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify",
-    }
-},
+-- {
+--   "folke/noice.nvim",
+--   event = "VeryLazy",
+--   opts = {
+--     -- add any options here
+--   },
+--   dependencies = {
+--     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+--     "MunifTanjim/nui.nvim",
+--     -- OPTIONAL:
+--     --   `nvim-notify` is only needed, if you want to use the notification view.
+--     --   If not available, we use `mini` as the fallback
+--     "rcarriga/nvim-notify",
+--     }
+-- },
 
   {
     "jbyuki/instant.nvim",
@@ -181,6 +182,16 @@ local plugins = {
       require('pretty-fold').setup()
    end
 },
+-- {
+    -- "Pocco81/auto-save.nvim",
+	-- lazy = false,
+    -- config = function()
+         -- require("auto-save").setup {
+            -- your config goes here
+            -- or just leave it empty :)
+         -- }
+    -- end,
+-- },
 		{'kevinhwang91/nvim-ufo',
 		lazy = false,
 		requires = 'kevinhwang91/promise-async'},
