@@ -54,6 +54,7 @@ local options = {
       side_padding = (cmp_style ~= "atom" and cmp_style ~= "atom_colored") and 1 or 0,
       winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
       scrollbar = false,
+      max_item_count = 5,
     },
     documentation = {
       border = border "CmpDocBorder",
@@ -68,7 +69,7 @@ local options = {
 
   formatting = formatting_style,
 
-  mapping = {
+ mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -79,7 +80,7 @@ local options = {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<TAB>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif require("luasnip").expand_or_jumpable() then
@@ -91,7 +92,7 @@ local options = {
       "i",
       "s",
     }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+    ["<S-TAB>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif require("luasnip").jumpable(-1) then
@@ -105,11 +106,11 @@ local options = {
     }),
   },
   sources = {
-	{ name = "nvim_lsp", keyword_length = 1},
-    { name = "luasnip", keyword_length = 1},
-    { name = "buffer", keyword_length = 1},
-    { name = "nvim_lua", keyword_length = 1},
-    { name = "path", keyword_length = 1},
+    { name = "nvim_lsp", keyword_length = 2, max_item_count = 5 },
+    { name = "luasnip", keyword_length = 2, max_item_count = 5 },
+    { name = "buffer", keyword_length = 2, max_item_count = 5 },
+    { name = "nvim_lua", keyword_length = 2, max_item_count = 5 },
+    { name = "path", keyword_length = 2, max_item_count = 5 },
   },
 }
 

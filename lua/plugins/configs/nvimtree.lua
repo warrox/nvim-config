@@ -1,7 +1,7 @@
 local options = {
   filters = {
     dotfiles = false,
-    exclude = { vim.fn.stdpath "config" .. "/lua/custom" },
+    exclude = { },
   },
   disable_netrw = true,
   hijack_netrw = true,
@@ -14,7 +14,7 @@ local options = {
   },
   view = {
     adaptive_size = false,
-    side = "left",
+    side = "right",
     width = 30,
     preserve_window_proportions = true,
   },
@@ -31,7 +31,7 @@ local options = {
     },
   },
   renderer = {
-    root_folder_label = false,
+    root_folder_label = true,
     highlight_git = false,
     highlight_opened_files = "none",
 

@@ -21,6 +21,7 @@ local plugins = {
       require "custom.configs.lspconfig"
     end, -- Override to setup mason-lspconfig
   },
+
   -- override plugin configs
 {
     "williamboman/mason.nvim",
@@ -46,19 +47,10 @@ local plugins = {
     end,
   },
 
-  {
-    "hrsh7th/nvim-cmp",
-    enabled = true,
-	lazy = false,
-  },
   -- {
-  --   'goolord/alpha-nvim',
-  --   lazy = false,
-  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  --   config = function ()
-  --       require'alpha'.setup(require'alpha.themes.startify'.config)
-  --   end
-  -- };
+  --   "hrsh7th/nvim-cmp",
+  --   enabled = false
+  -- },
 
   {
     "Diogo-ss/42-header.nvim",
@@ -66,144 +58,75 @@ local plugins = {
     config = function()
         local header = require("42header")
         header.setup({
-            default_map = true, -- default Mapping <F1> in normal 
+            default_map = true, -- default Mapping <F1> in normal mode
             auto_update = true,  -- update header when saving
             user = "whamdi", -- your user
-            mail = "whamdi@42.fr", -- your mail
+            mail = "whamdi@student.42.fr", -- your mail
         })
     end
   },
 
--- ------THEMES------
---   {
--- 		"rebelot/kanagawa.nvim",
---   },
---
--- {
---     "catppuccin/nvim",
---     name = "catppuccin",
---     priority = 1000,
---     config = function()
---         require("catppuccin").setup({
---             flavour = "mocha", -- Change this line to your desired flavor
---             -- Autres options de configuration de Catppuccin
---         })
---     end,
--- },
--- { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
--- {
---     "scottmckendry/cyberdream.nvim",
---     lazy = false,
---     priority = 1000,
---     config = function()
---         require("cyberdream").setup({
---             -- Recommended - see "Configuring" below for more config options
---             transparent = true,
---             italic_comments = true,
---             hide_fillchars = true,
---             borderless_telescope = true,
---             terminal_colors = true,
---         })
---         vim.cmd("colorscheme cyberdream") -- set the colorscheme
---     end,
--- },
---------------------
-
-  -- {
-  --   "lourio0/nvim-count_lines",
-  --   lazy = false,
-  --   config = function()
-  --       require('nvim-count_lines').count_lines()
-  --   end,
-  -- },
-
-  {
-    "rcarriga/nvim-notify",
-    lazy = false,
-  },
-
-  {
-    "MunifTanjim/nui.nvim",
-    lazy = false,
-  },
-
--- {
---   "folke/noice.nvim",
---   event = "VeryLazy",
---   opts = {
---     -- add any options here
---   },
---   dependencies = {
---     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
---     "MunifTanjim/nui.nvim",
---     -- OPTIONAL:
---     --   `nvim-notify` is only needed, if you want to use the notification view.
---     --   If not available, we use `mini` as the fallback
---     "rcarriga/nvim-notify",
---     }
--- },
-
-  {
-    "jbyuki/instant.nvim",
-    lazy = false,
-  },
-  {
-	"andweeb/presence.nvim",
+	{
+	"jbyuki/instant.nvim",
 	lazy = false,
-  },
+	},
 
-  {
-  'stevearc/aerial.nvim',
-	lazy = false,
-    opts = {},
-  -- Optional dependencies
-    dependencies = {
-     "nvim-treesitter/nvim-treesitter",
-     "nvim-tree/nvim-web-devicons"
-  },
-  {
-    "smjonas/inc-rename.nvim",
-	lazy = false,
-    config = function()
-      require("inc_rename").setup()
-    end,
- },
-  {
-    "karb94/neoscroll.nvim",
-	lazy = false,
-    config = function ()
-      require('neoscroll').setup {}
-    end
-  },
+	{
+		"vim-scripts/DoxygenToolkit.vim"
+	},
 
-{ 'anuvyklack/pretty-fold.nvim',
-	lazy = false,
-   config = function()
-      require('pretty-fold').setup()
-   end
-},
--- {
-    -- "Pocco81/auto-save.nvim",
+	-- {
+	-- "lourio0/nvim-count_lines",
 	-- lazy = false,
-    -- config = function()
-         -- require("auto-save").setup {
-            -- your config goes here
-            -- or just leave it empty :)
-         -- }
-    -- end,
--- },
-		{'kevinhwang91/nvim-ufo',
-		lazy = false,
-		requires = 'kevinhwang91/promise-async'},
-	--{
-	--   "startup-nvim/startup.nvim",
-	--   lazy = false,
-	--   requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-	--   config = function()
-	-- 	require"startup".setup()
-	--   end
+	-- config = function()
+ --        require('nvim-count_lines').count_lines()
+	-- end,
 	-- },
-}
+
+	{
+		"jvgrootveld/telescope-zoxide",
+		lazy = false,
+	},
+
+	{
+		"arakashic/chromatica.nvim",
+		lazy = false,
+	},
+	{
+	  "folke/flash.nvim",
+	  event = "VeryLazy",
+	  ---@type Flash.Config
+	  opts = {},
+	  -- stylua: ignore
+	  keys = {
+		{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+		{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+		{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+		{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+		{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+	  },
+	},
+
+	-- {
+	--   "folke/noice.nvim",
+	--   event = "VeryLazy",
+	--   opts = {
+	-- 	-- add any options here
+	--   },
+	--   dependencies = {
+	-- 	-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+	-- 	"MunifTanjim/nui.nvim",
+	-- 	-- OPTIONAL:
+	-- 	--   `nvim-notify` is only needed, if you want to use the notification view.
+	-- 	--   If not available, we use `mini` as the fallback
+	-- 	"rcarriga/nvim-notify",
+	-- 	},
+	-- 	-- config = function()
+	-- 	-- 	require "custom.configs.noice"
+	-- 	-- end,
+	-- }
+
+
   -- All NvChad plugins are lazy-loaded by default
   -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
   -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example

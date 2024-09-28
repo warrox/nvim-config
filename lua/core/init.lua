@@ -3,6 +3,7 @@ local g = vim.g
 local config = require("core.utils").load_config()
 
 -------------------------------------- globals -----------------------------------------
+vim.cmd("au! BufNewFile,BufRead *.tpp set filetype=cpp");
 g.nvchad_theme = config.ui.theme
 g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
 g.toggle_theme_icon = "   "
@@ -30,6 +31,7 @@ opt.mouse = "a"
 
 -- Numbers
 opt.number = true
+opt.relativenumber = true
 opt.numberwidth = 2
 opt.ruler = false
 
@@ -63,6 +65,7 @@ vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or "
 
 -------------------------------------- autocmds ------------------------------------------
 local autocmd = vim.api.nvim_create_autocmd
+
 
 -- dont list quickfix buffers
 autocmd("FileType", {
@@ -107,35 +110,6 @@ autocmd("BufWritePost", {
     -- vim.cmd("redraw!")
   end,
 })
--- Réglage de la méthode de pliage
-opt.foldmethod = 'manual' -- vous pouvez également utiliser 'indent', 'syntax', etc., selon vos préférences
-
--- Niveau de pliage par défaut (0 signifie tout plié par défaut)
-opt.foldlevel = 99 -- ceci ouvre tous les plis par défaut
-
--- Enregistrer l'état des plis dans un fichier de vue quand vous quittez un fichier
-opt.viewoptions = 'folds,cursor,curdir' -- vous pouvez ajouter d'autres options si nécessaire
-
--- Pour enregistrer l'état des plis automatiquement à la fermeture d'un fichier
-autocmd("BufWinLeave", {
-  pattern = "?*",
-  command = "mkview"
-})
-
--- Pour restaurer l'état des plis lors de l'ouverture d'un fichier
-autocmd("BufWinEnter", {
-  pattern = "?*",
-  command = "silent! loadview"
-})
-
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.o.foldcolumn = '1'
---
--- -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
--- vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
--- vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
---
---
 
 -------------------------------------- commands ------------------------------------------
 local new_cmd = vim.api.nvim_create_user_command
