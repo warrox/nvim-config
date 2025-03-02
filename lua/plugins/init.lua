@@ -135,6 +135,36 @@ local default_plugins = {
     end,
   },
 
+	{
+	  "williamboman/mason.nvim",
+	  cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+	  opts = function()
+		local opts = require "plugins.configs.mason" -- Récupère les options par défaut
+
+		-- Ajoute ici les outils nécessaires
+		opts.ensure_installed = {
+		  "prettier",  -- Pour le formatage
+		  "eslint_d",  -- Linter JavaScript
+		  "lua-language-server", -- Pour Lua
+		  "stylua",  -- Formatter Lua
+		  "clangd",  -- LSP pour C/C++
+		  "rust-analyzer", -- LSP pour Rust
+		}
+
+		return opts
+	  end,
+	  config = function(_, opts)
+		dofile(vim.g.base46_cache .. "mason")
+		require("mason").setup(opts)
+
+		-- Commande personnalisée pour tout installer
+		vim.api.nvim_create_user_command("MasonInstallAll", function()
+		  vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+		end, {})
+
+		vim.g.mason_binaries_list = opts.ensure_installed
+	  end,
+	},
   {
     "neovim/nvim-lspconfig",
     init = function()
@@ -262,6 +292,22 @@ local default_plugins = {
       require("which-key").setup(opts)
     end,
   },
+
+	{
+	  "nvimtools/none-ls.nvim",
+	  dependencies = { "nvim-lua/plenary.nvim" }, -- Dépendance requise
+	  config = function()
+		local null_ls = require("none-ls")
+
+		null_ls.setup({
+		  sources = {
+			null_ls.builtins.formatting.prettier,  -- Formatage avec Prettier
+			null_ls.builtins.diagnostics.eslint_d, -- Linter ESLint
+			null_ls.builtins.code_actions.eslint_d, -- Fix auto avec ESLint
+		  },
+		})
+	  end,
+	}
 }
 
 local config = require("core.utils").load_config()
